@@ -1,32 +1,37 @@
-import copy
+import os
 import sys
+import copy
 from pathlib import Path
-import re
 #########################################
-def get_max(l, iter):
-    if iter <= 0:
-        return ''
-    max_l = l[0]
-    max_l_i = 0
-    for i in range(len(l)-iter+1):
-        if max_l < l[i]:
-            max_l = l[i]
-            max_l_i = i
-    return max_l + get_max(l[max_l_i+1:], iter-1)
+class Sol:
+    BASE_DIR = Path(__file__).parent.resolve()
 
-# Defining main function
-def main():
-    with (open('/Users/pchapon/projects/aoc/2025/3/input.txt') as f):
-        lines = f.read().split("\n")
-        print(lines)
-        res = 0
-        for l in lines:
-            if l == '':
-                break
-            m = int(get_max(l, 12))
-            res += m
-        print('result:', res)
+    def get_max(self, l, iter):
+        if iter <= 0:
+            return ''
+        max_l = l[0]
+        max_l_i = 0
+        for i in range(len(l)-iter+1):
+            if max_l < l[i]:
+                max_l = l[i]
+                max_l_i = i
+        return max_l + self.get_max(l[max_l_i+1:], iter-1)
+
+    # Defining main function
+    def main(self):
+        BASE_DIR = Path(__file__).parent.resolve()
+        with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
+            lines = f.read().split("\n")
+            print(lines)
+            res = 0
+            for l in lines:
+                if l == '':
+                    break
+                m = int(self.get_max(l, 12))
+                res += m
+            print('result:', res)
 
 #########################################
 if __name__=="__main__":
-    main()
+    sol = Sol()
+    sol.main()

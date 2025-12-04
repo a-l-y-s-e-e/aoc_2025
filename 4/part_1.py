@@ -1,9 +1,10 @@
-import copy
+import os
 import sys
+import copy
 from pathlib import Path
-import re
 #########################################
 class Sol:
+    BASE_DIR = Path(__file__).parent.resolve()
     def count_adjacent(self, r, c):
         total = 0
         for dr in [-1, 0, 1]:
@@ -14,7 +15,7 @@ class Sol:
         return total
 
     def main(self):
-        with (open('/Users/pchapon/projects/aoc/2025/4/input.txt') as f):
+        with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
             self.grid = f.read().split("\n")
             self.grid = self.grid[:-1]
             print(self.grid)
