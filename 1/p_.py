@@ -3,9 +3,6 @@ import sys
 from pathlib import Path
 import re
 #########################################
-
-
-# Defining main function
 def main():
     with (open('/Users/pchapon/projects/aoc/2025/1/input.txt') as f):
         lines = f.read().split("\n")
@@ -31,9 +28,6 @@ def main():
             p = p%mod
         print('------')
         print(res)
-
-
-
 
 #########################################
 if __name__=="__main__":

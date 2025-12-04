@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 import re
 #########################################
-
 def is_doubled(n: int):
     s = str(n)
     if len(s)%2 == 1:
@@ -24,9 +23,6 @@ def main():
                     print(n)
                     res += n
         print(res)
-
-
-
 
 #########################################
 if __name__=="__main__":

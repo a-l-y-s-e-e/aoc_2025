@@ -3,19 +3,15 @@ import sys
 from pathlib import Path
 import re
 #########################################
-
-
 def get_max(l, iter):
     if iter <= 0:
         return ''
-    #print('get_max', l, iter)
     max_l = l[0]
     max_l_i = 0
     for i in range(len(l)-iter+1):
         if max_l < l[i]:
             max_l = l[i]
             max_l_i = i
-    #print(max_l, max_l_i)
     return max_l + get_max(l[max_l_i+1:], iter-1)
 
 # Defining main function
@@ -25,17 +21,11 @@ def main():
         print(lines)
         res = 0
         for l in lines:
-            print('-----')
             if l == '':
                 break
-            print(l)
             m = int(get_max(l, 12))
-            print(m)
             res += m
         print('result:', res)
-
-
-
 
 #########################################
 if __name__=="__main__":

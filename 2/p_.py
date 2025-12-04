@@ -18,7 +18,6 @@ def is_doubled(n: int):
                 return True
     return False
 
-# Defining main function
 def main():
     with (open('/Users/pchapon/projects/aoc/2025/2/input.txt') as f):
         lines = f.read().split("\n")
@@ -32,9 +31,6 @@ def main():
                     #print(n, 'is doubled')
                     res += n
         print(res)
-
-
-
 
 #########################################
 if __name__=="__main__":

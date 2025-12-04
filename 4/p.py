@@ -28,7 +28,6 @@ class Sol:
                         res += 1
             print('result:', res)
 
-
 #########################################
 if __name__=="__main__":
     sol = Sol()
