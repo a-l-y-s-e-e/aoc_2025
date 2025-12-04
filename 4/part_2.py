@@ -28,7 +28,6 @@ class Sol:
                 for r in range(self.R):
                     for c in range(self.C):
                         if self.grid[r][c] == '@' and self.count_adjacent(r, c) < 4:
-                            print('r:', r, 'c:', c, 'adjacent:', self.count_adjacent(r, c))
                             self.grid[r][c] = '.'
                             res += 1
                             modified += 1
