@@ -25,10 +25,8 @@ class Sol:
             res = 0
             for iter in lines[0].split(','):
                 s, e = [int(a) for a in iter.split('-')]
-                #print('s:', s, 'e:', e)
                 for n in range(s, e+1):
                     if self.is_doubled(n):
-                        #print(n, 'is doubled')
                         res += n
             print('result:', res)
 
