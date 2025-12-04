@@ -1,6 +1,4 @@
 import os
-import sys
-import copy
 from pathlib import Path
 #########################################
 class Sol:
@@ -19,7 +17,6 @@ class Sol:
 
     # Defining main function
     def main(self):
-        BASE_DIR = Path(__file__).parent.resolve()
         with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
             lines = f.read().split("\n")
             print(lines)

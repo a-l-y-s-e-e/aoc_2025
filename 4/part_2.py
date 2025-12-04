@@ -1,6 +1,4 @@
 import os
-import sys
-import copy
 from pathlib import Path
 #########################################
 class Sol:

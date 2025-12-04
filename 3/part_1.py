@@ -1,6 +1,4 @@
 import os
-import sys
-import copy
 from pathlib import Path
 #########################################
 class Sol:
@@ -23,11 +21,9 @@ class Sol:
                         max_l = l[i]
                         max_l_i = i
                 max_r = l[-1]
-                max_r_i = len(l)-1
                 for i in range(len(l)-2, max_l_i, -1):
                     if max_r < l[i]:
                         max_r = l[i]
-                        max_r_i = i
                 print(max_l+max_r)
                 res += int(max_l+max_r)
             print('result:', res)
