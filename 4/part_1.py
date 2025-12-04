@@ -3,6 +3,7 @@ from pathlib import Path
 #########################################
 class Sol:
     BASE_DIR = Path(__file__).parent.resolve()
+
     def count_adjacent(self, r, c):
         total = 0
         for dr in [-1, 0, 1]:

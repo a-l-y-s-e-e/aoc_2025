@@ -10,7 +10,6 @@ class Sol:
             return False
         return s[:len(s)//2] == s[len(s)//2:]
 
-    # Defining main function
     def main(self):
         with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
             lines = f.read().split("\n")

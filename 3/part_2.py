@@ -15,7 +15,6 @@ class Sol:
                 max_l_i = i
         return max_l + self.get_max(l[max_l_i+1:], iter-1)
 
-    # Defining main function
     def main(self):
         with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
             lines = f.read().split("\n")
