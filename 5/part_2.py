@@ -1,36 +1,45 @@
 import os
 from pathlib import Path
+from itertools import groupby
 #########################################
 class Sol:
     BASE_DIR = Path(__file__).parent.resolve()
 
-    def count_adjacent(self, r, c):
-        total = 0
-        for dr in [-1, 0, 1]:
-            for dc in [-1, 0, 1]:
-                if not (dr==0 and dc==0):
-                    if -1 < dr+r < self.R and -1 < dc+c < self.C and self.grid[dr+r][dc+c] == '@':
-                        total += 1
-        return total
+    def get_all_overlapping_interval(self, s, e):
+        res = [[s, e]]
+        for f in self.fresh:
+            if f[0] <= s <= f[1] or f[0] <= e <= f[1] or s <= f[0] <= e or s <= f[1] <= e:
+                res.append(f)
+        return res
+
+    def get_merged_interval(self, intervals):
+        min_s, max_e = intervals[0]
+        for i in intervals:
+            min_s = min(i[0], min_s)
+            max_e = max(i[1], max_e)
+        return [min_s, max_e]
 
     def main(self):
         with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
-            self.grid = f.read().split("\n")
-            self.grid = [list(a) for a in self.grid]
-            self.grid = self.grid[:-1]
-            print(self.grid)
-            self.R = len(self.grid)
-            self.C = len(self.grid[0])
+            self.lines = f.read().split("\n")
+            self.fresh = []
+            tmp = []
+            for k, g in groupby(self.lines, lambda x: x == ''):
+                if not k:
+                    tmp.append(list(g))
+            for l in tmp[0]:
+                print('------')
+                s, e = [int(a) for a in l.split('-')]
+                intervals = self.get_all_overlapping_interval(s, e)
+                print(s, e, intervals)
+                for i in intervals:
+                    if i in self.fresh:
+                        self.fresh.remove(i)
+                self.fresh.append(self.get_merged_interval(intervals))
+            print('fresh ids:', self.fresh)
             res = 0
-            modified = 1
-            while modified > 0:
-                modified = 0
-                for r in range(self.R):
-                    for c in range(self.C):
-                        if self.grid[r][c] == '@' and self.count_adjacent(r, c) < 4:
-                            self.grid[r][c] = '.'
-                            res += 1
-                            modified += 1
+            for i in self.fresh:
+                res += i[1]-i[0]+1
             print('result:', res)
 
 #########################################
