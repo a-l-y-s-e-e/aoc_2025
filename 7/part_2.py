@@ -5,42 +5,30 @@ from itertools import groupby
 class Sol:
     BASE_DIR = Path(__file__).parent.resolve()
 
-    def get_all_overlapping_interval(self, s, e):
-        res = [[s, e]]
-        for f in self.fresh:
-            if f[0] <= s <= f[1] or f[0] <= e <= f[1] or s <= f[0] <= e or s <= f[1] <= e:
-                res.append(f)
-        return res
-
-    def get_merged_interval(self, intervals):
-        min_s, max_e = intervals[0]
-        for i in intervals:
-            min_s = min(i[0], min_s)
-            max_e = max(i[1], max_e)
-        return [min_s, max_e]
-
     def main(self):
         with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
-            self.lines = f.read().split("\n")
-            self.fresh = []
-            tmp = []
-            for k, g in groupby(self.lines, lambda x: x == ''):
-                if not k:
-                    tmp.append(list(g))
-            for l in tmp[0]:
-                print('------')
-                s, e = [int(a) for a in l.split('-')]
-                intervals = self.get_all_overlapping_interval(s, e)
-                print(s, e, intervals)
-                for i in intervals:
-                    if i in self.fresh:
-                        self.fresh.remove(i)
-                self.fresh.append(self.get_merged_interval(intervals))
-            print('fresh ids:', self.fresh)
-            res = 0
-            for i in self.fresh:
-                res += i[1]-i[0]+1
-            print('result:', res)
+            lines = f.read().split("\n")
+            lines = [list(l) for l in lines]
+            for i in range(len(lines[0])):
+                if lines[0][i] == 'S':
+                    lines[0][i] = 1
+            for i in range(1, len(lines)):
+                for j in range(len(lines[i])):
+                    if isinstance(lines[i-1][j], int):
+                        if lines[i][j] == '^':
+                            if j > 0:
+                                if not isinstance(lines[i][j-1], int):
+                                    lines[i][j-1] = 0
+                                lines[i][j-1] += lines[i-1][j]
+                            if j < len(lines[i]) - 1:
+                                if not isinstance(lines[i][j+1], int):
+                                    lines[i][j+1] = 0
+                                lines[i][j+1] += lines[i-1][j]
+                        else:
+                            if not isinstance(lines[i][j], int):
+                                lines[i][j] = 0
+                            lines[i][j] += lines[i-1][j]
+            print('result:', sum([a for a in lines[-2] if isinstance(a, int)]))
 
 #########################################
 if __name__=="__main__":

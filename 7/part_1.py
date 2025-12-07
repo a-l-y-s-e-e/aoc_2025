@@ -7,22 +7,20 @@ class Sol:
 
     def main(self):
         with (open(os.path.join(self.BASE_DIR, 'input.txt')) as f):
-            self.lines = f.read().split("\n")
-            self.fresh = []
-            tmp = []
-            for k, g in groupby(self.lines, lambda x: x == ''):
-                if not k:
-                    tmp.append(list(g))
-            for l in tmp[0]:
-                s, e = l.split('-')
-                self.fresh.append([int(s), int(e)])
-            print('fresh ids:', self.fresh)
+            lines = f.read().split("\n")
+            lines = [list(l) for l in lines]
             res = 0
-            for l in [int(l) for l in tmp[1]]:
-                for i in self.fresh:
-                    if i[0] <= l <= i[1]:
-                        res += 1
-                        break
+            for i in range(1, len(lines)):
+                for j in range(len(lines[i])):
+                    if lines[i-1][j] in ['|', 'S']:
+                        if lines[i][j] == '^':
+                            res += 1
+                            if j > 0:
+                                lines[i][j-1] = '|'
+                            if j < len(lines[i]) - 1:
+                                lines[i][j+1] = '|'
+                        else:
+                            lines[i][j] = '|'
             print('result:', res)
 
 #########################################
